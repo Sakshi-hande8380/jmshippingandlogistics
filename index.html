@@ -584,20 +584,327 @@
     }
     .footer-bottom .credit .heart { color: #e91e8c; }
 
-    /* Responsive tweaks */
-    @media (max-width: 900px) {
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .area-grid { grid-template-columns: 1fr 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+    /* ===== MOBILE MENU TOGGLE ===== */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .nav-links.mobile-active {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .nav-links.mobile-active li a {
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* ===== TABLET & LARGE SCREEN (900px - 1200px) ===== */
+    @media (max-width: 1200px) {
+      .top-bar {
+        padding: 10px 20px;
+        flex-wrap: wrap;
+      }
+      .top-bar .contact-info {
+        gap: 15px;
+        font-size: 13px;
+      }
+      .contact-info a i { font-size: 12px; }
+      nav { padding: 0 20px; }
+      .about-section { padding: 60px 20px; }
+      .services-section { padding: 60px 20px; }
+      .service-area { padding: 50px 20px; }
+      .quote-section { padding: 50px 20px; }
+      footer { padding: 50px 20px 0; }
+    }
+
+    /* ===== TABLET (768px - 1024px) ===== */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .area-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
       .quote-body { grid-template-columns: 1fr; }
       .quote-visual { display: none; }
+      .form-row { grid-template-columns: repeat(2, 1fr); }
+      .form-row-2 { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 600px) {
+
+    /* ===== MOBILE LANDSCAPE & TABLET PORTRAIT (768px) ===== */
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 8px 15px;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .top-bar .logo { font-size: 18px; }
+      .top-bar .contact-info {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        font-size: 12px;
+      }
+      .top-bar .socials { gap: 5px; }
+      .top-bar .socials a {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+
+      nav {
+        padding: 0 15px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mobile-menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        gap: 0;
+      }
+      .nav-links li a {
+        padding: 14px 15px;
+        font-size: 13px;
+      }
+      .btn-brochure {
+        padding: 12px 20px;
+        font-size: 13px;
+      }
+
+      .hero {
+        height: 350px;
+      }
+      .slide-content {
+        bottom: 40px;
+        left: 20px;
+      }
+      .slide-content h1 {
+        font-size: 36px;
+      }
+      .slide-content .sub { font-size: 12px; }
+      .hero-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+      .hero-arrow.prev { left: 10px; }
+      .hero-arrow.next { left: 52px; }
+      .hero-dots {
+        bottom: 15px;
+        right: 15px;
+        gap: 8px;
+      }
+      .hero-dots span {
+        width: 10px;
+        height: 10px;
+      }
+
+      .about-section {
+        padding: 50px 15px;
+      }
+      .about-section h2 {
+        font-size: 28px;
+      }
+      .about-section p {
+        font-size: 14px;
+      }
+
+      .services-section {
+        padding: 50px 15px;
+      }
+      .services-section h2 {
+        font-size: 28px;
+      }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { height: 300px; }
+
+      .service-area {
+        padding: 40px 15px;
+      }
+      .service-area h2 {
+        font-size: 24px;
+      }
+      .area-grid { grid-template-columns: repeat(2, 1fr); }
+      .area-item { height: 250px; }
+      .area-item .area-content .num { font-size: 28px; }
+
+      .quote-section {
+        padding: 40px 15px;
+      }
+      .quote-header h2 { font-size: 22px; }
+      .quote-form {
+        padding: 25px;
+      }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .quote-form input {
+        padding: 12px 14px;
+        font-size: 13px;
+      }
+
+      footer {
+        padding: 40px 15px 0;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .footer-col h3 { font-size: 16px; }
+      .footer-col p { font-size: 13px; }
+      .working-hours .hours-row,
+      .connect .info-row {
+        font-size: 13px;
+      }
+    }
+
+    /* ===== MOBILE (480px - 767px) ===== */
+    @media (max-width: 480px) {
+      .top-bar {
+        padding: 6px 10px;
+      }
+      .top-bar .logo { font-size: 16px; }
+      .top-bar .contact-info {
+        font-size: 11px;
+      }
+      .top-bar .contact-info a i { font-size: 11px; }
+      .top-bar .socials a {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+      }
+
+      nav {
+        padding: 0 10px;
+      }
+      .btn-brochure {
+        padding: 10px 16px;
+        font-size: 12px;
+      }
+      .nav-links li a {
+        padding: 12px 10px;
+        font-size: 12px;
+      }
+
+      .hero {
+        height: 280px;
+      }
+      .slide-content {
+        bottom: 30px;
+        left: 15px;
+      }
+      .slide-content h1 {
+        font-size: 24px;
+        line-height: 1;
+      }
+      .slide-content .sub { font-size: 11px; }
+      .hero-arrow {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+      }
+      .hero-arrow.prev { left: 5px; }
+      .hero-arrow.next { left: 47px; }
+      .hero-dots {
+        bottom: 10px;
+        right: 10px;
+      }
+      .hero-dots span {
+        width: 8px;
+        height: 8px;
+      }
+
+      .about-section {
+        padding: 40px 12px;
+      }
+      .about-section h2 {
+        font-size: 22px;
+      }
+      .about-section p { font-size: 13px; }
+      .btn-explore {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .services-section {
+        padding: 40px 12px;
+      }
+      .services-section h2 {
+        font-size: 22px;
+      }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { height: 250px; }
+      .service-card .overlay {
+        padding: 20px 16px;
+      }
+      .service-card .overlay h3 { font-size: 15px; }
+      .service-card .overlay p { font-size: 12px; }
+
+      .service-area {
+        padding: 30px 12px;
+      }
+      .service-area h2 { font-size: 20px; }
+      .area-grid { grid-template-columns: 1fr; }
+      .area-item { height: 220px; }
+      .area-item .area-content .num { font-size: 24px; }
+      .area-item .area-content h3 { font-size: 15px; }
+      .area-item .area-content p { font-size: 12px; }
+
+      .quote-section { padding: 30px 12px; }
+      .quote-box { border-radius: 8px; }
+      .quote-header h2 { font-size: 20px; }
+      .quote-form {
+        padding: 20px;
+      }
+      .quote-form h3 { font-size: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .quote-form input {
+        padding: 11px 12px;
+        font-size: 12px;
+      }
+      .btn-quote {
+        padding: 14px;
+        font-size: 14px;
+      }
+
+      footer {
+        padding: 30px 12px 0;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .footer-col h3 { font-size: 15px; }
+      .footer-col p { font-size: 12px; }
+      .footer-col ul li { margin-bottom: 10px; }
+      .working-hours .hours-row,
+      .connect .info-row {
+        font-size: 12px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .footer-bottom p,
+      .footer-bottom .credit { font-size: 11px; }
+    }
+
+    /* ===== SMALL MOBILE (< 400px) ===== */
+    @media (max-width: 380px) {
+      .slide-content h1 { font-size: 20px; }
       .services-grid { grid-template-columns: 1fr; }
       .area-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      .about-section h2 { font-size: 20px; }
+      .services-section h2 { font-size: 20px; }
+      .service-area h2 { font-size: 18px; }
+      .quote-header h2 { font-size: 18px; }
     }
   </style>
 </head>
@@ -620,7 +927,8 @@
 
 <!-- ===== NAVBAR ===== -->
 <nav>
-  <ul class="nav-links">
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About Us</a></li>
     <li><a href="services.html">Services</a></li>
@@ -858,7 +1166,7 @@
       </div>
       <div class="info-row">
         <i class="fas fa-phone"></i>
-        <span>+91-9702618333</span>
+        <span>+91-7777071674</span>
       </div>
     </div>
   </div>
@@ -869,6 +1177,30 @@
 </footer>
 
 <script>
+  // Mobile Menu Toggle
+  function toggleMobileMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('mobile-active');
+  }
+
+  // Close menu when link is clicked
+  document.querySelectorAll('#navLinks li a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('mobile-active');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const nav = document.querySelector('nav');
+    const navLinks = document.getElementById('navLinks');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (!nav.contains(event.target)) {
+      navLinks.classList.remove('mobile-active');
+    }
+  });
+
   let current = 0;
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('#dots span');

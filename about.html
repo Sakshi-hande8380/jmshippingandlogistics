@@ -375,24 +375,92 @@
     .back-top:hover { background: #e91e8c; }
 
     /* =====================================================
+       MOBILE MENU TOGGLE
+    ===================================================== */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .nav-links.mobile-active {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .nav-links.mobile-active li a {
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* =====================================================
        RESPONSIVE
     ===================================================== */
-    @media (max-width: 1100px) {
+    @media (max-width: 1200px) {
+      .top-bar { padding: 10px 20px; }
+      nav { padding: 0 20px; }
+      .page-hero h1 { font-size: 42px; }
+    }
+
+    @media (max-width: 1024px) {
       .about-inner { grid-template-columns: 1fr 1fr; }
       .a-left { grid-column: 1 / -1; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 800px) {
-      .about-inner { grid-template-columns: 1fr; }
       .vmw-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 600px) {
+
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 8px 15px;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .top-bar .logo { font-size: 18px; }
+      .top-bar .contact-info {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 12px;
+      }
+      nav { padding: 0 15px; }
+      .mobile-menu-toggle { display: block; }
       .nav-links { display: none; }
+      .nav-links li a { padding: 14px 15px; font-size: 13px; }
+      .btn-brochure { padding: 12px 20px; font-size: 13px; }
+      
+      .page-hero h1 { font-size: 32px; }
+      .page-hero p { font-size: 14px; }
+      .about-inner { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
-      .page-hero h1 { font-size: 28px; letter-spacing: 2px; }
-      .about-section { padding: 50px 20px; }
-      .q-text { font-size: 22px; }
+      .q-text { font-size: 20px; }
+      .vmw-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .top-bar { padding: 6px 10px; }
+      .top-bar .logo { font-size: 16px; }
+      .top-bar .contact-info { font-size: 11px; }
+      nav { padding: 0 10px; }
+      .btn-brochure { padding: 10px 16px; font-size: 12px; }
+      .nav-links li a { padding: 12px 10px; font-size: 12px; }
+      
+      .page-hero h1 { font-size: 24px; letter-spacing: 1px; }
+      .page-hero p { font-size: 13px; }
+      .about-section { padding: 40px 12px; }
+      .q-text { font-size: 18px; }
+      .about-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 380px) {
+      .page-hero h1 { font-size: 20px; }
+      .q-text { font-size: 16px; }
     }
   </style>
 </head>
@@ -419,7 +487,8 @@
 
 <!-- ==================== NAVBAR ==================== -->
 <nav>
-  <ul class="nav-links">
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html" class="active">About Us <i class="fas fa-caret-down"></i></a></li>
     <li><a href="services.html">Services</a></li>
@@ -608,7 +677,7 @@
       </div>
       <div class="info-row">
         <i class="fas fa-phone"></i>
-        <span>+91-9702618333</span>
+        <span>+91-7777071674 | +91-9527907997</span>
       </div>
     </div>
 
@@ -625,6 +694,28 @@
 
 <!-- ==================== ALL ANIMATIONS (JavaScript) ==================== -->
 <script>
+  // Mobile Menu Toggle
+  function toggleMobileMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('mobile-active');
+  }
+
+  // Close menu when link is clicked
+  document.querySelectorAll('#navLinks li a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('mobile-active');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const nav = document.querySelector('nav');
+    const navLinks = document.getElementById('navLinks');
+    if (nav && !nav.contains(event.target)) {
+      navLinks.classList.remove('mobile-active');
+    }
+  });
+
 (function () {
   'use strict';
 
