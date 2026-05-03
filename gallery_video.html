@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery Videos | JM Shipping &amp; Logistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; color: #222; overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar {
+      background: #0d1b3e; padding: 10px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .top-bar .logo { font-size: 22px; font-weight: 700; color: #fff; }
+    .top-bar .logo span { color: #e91e8c; }
+    .top-bar .contact-info { display: flex; gap: 30px; align-items: center; }
+    .top-bar .contact-info a { color: #ccc; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .top-bar .contact-info a:hover { color: #e91e8c; }
+    .top-bar .socials { display: flex; gap: 10px; align-items: center; }
+    .top-bar .socials a {
+      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; text-decoration: none; transition: all 0.3s;
+    }
+    .top-bar .socials a:hover { background: #e91e8c; border-color: #e91e8c; }
+
+    /* NAVBAR */
+    nav {
+      background: #fff; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li { position: relative; }
+    .nav-links li a {
+      display: flex; align-items: center; gap: 5px;
+      padding: 22px 20px; text-decoration: none;
+      color: #333; font-size: 14px; font-weight: 500;
+      transition: color 0.3s; border-bottom: 3px solid transparent;
+    }
+    .nav-links li a i { font-size: 10px; }
+    .nav-links li a:hover, .nav-links li a.active { color: #e91e8c; border-bottom-color: #e91e8c; }
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #fff; min-width: 160px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999;
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu li a { padding: 14px 20px; border-bottom: none; display: block; font-size: 14px; color: #333; }
+    .dropdown-menu li a:hover { color: #e91e8c; background: #fafafa; }
+    .dropdown-menu li a.active-sub { color: #e91e8c; }
+    .btn-brochure {
+      background: linear-gradient(135deg, #e91e8c, #c2185b);
+      color: #fff; border: none; padding: 14px 28px;
+      border-radius: 4px; font-size: 15px; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: opacity 0.3s;
+    }
+    .btn-brochure:hover { opacity: 0.9; }
+
+    /* PAGE HERO — with animated network lines (matching image 4) */
+    .page-hero {
+      background: linear-gradient(135deg, #3a0a6e 0%, #6a1b9a 25%, #9c27b0 45%, #c2185b 70%, #e91e8c 100%);
+      padding: 75px 40px 90px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #heroCanvas {
+      position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
+    }
+    .page-hero h1 {
+      font-size: 44px; font-weight: 800; color: #fff;
+      letter-spacing: 4px; position: relative; z-index: 2; margin-bottom: 16px;
+      animation: heroDown 0.7s cubic-bezier(.22,1,.36,1) both;
+    }
+    .page-hero h1 .highlight {
+      background: linear-gradient(135deg, #e91e8c, #9c27b0);
+      padding: 0 6px;
+    }
+    .breadcrumb {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: 14px; color: rgba(255,255,255,0.88);
+      animation: heroDown 0.7s 0.15s cubic-bezier(.22,1,.36,1) both;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.88); text-decoration: none; }
+    .breadcrumb .sep i { font-size: 11px; color: #00bcd4; }
+    @keyframes heroDown { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* VIDEOS SECTION */
+    .videos-section {
+      background: #f5f5f5; padding: 60px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .videos-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .videos-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; position: relative; z-index: 1;
+    }
+    .video-card {
+      position: relative; overflow: hidden;
+      border-radius: 4px;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .video-card.vis { opacity: 1; transform: translateY(0); }
+    .video-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+    .video-card .thumb {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      display: block; transition: transform 0.4s, filter 0.4s;
+    }
+    .video-card:hover .thumb { transform: scale(1.04); filter: brightness(0.85); }
+    .video-card .play-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .video-card:hover .play-btn { background: #e91e8c; transform: translate(-50%,-50%) scale(1.1); }
+    .video-card .play-btn i { font-size: 24px; color: #0d1b3e; margin-left: 4px; }
+    .video-card:hover .play-btn i { color: #fff; }
+
+    /* Video Modal */
+    .video-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      z-index: 9999; display: none;
+      align-items: center; justify-content: center;
+    }
+    .video-modal.open { display: flex; }
+    .video-modal-inner {
+      width: 80vw; max-width: 900px;
+      animation: lbIn 0.3s ease;
+    }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .video-modal-inner video, .video-modal-inner iframe {
+      width: 100%; aspect-ratio: 16/9; border: none; display: block;
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 24px;
+      color: #fff; font-size: 36px; cursor: pointer; transition: color 0.3s;
+    }
+    .modal-close:hover { color: #e91e8c; }
+
+    /* FOOTER */
+    footer { background: #0d1b3e; padding: 60px 40px 0; position: relative; overflow: hidden; }
+    footer::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c44 1.5px, transparent 1.5px);
+      background-size: 70px 70px; pointer-events: none; opacity: 0.35;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr 1.4fr 1.4fr;
+      gap: 40px; position: relative; z-index: 1; padding-bottom: 50px;
+    }
+    .footer-col h3 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+    .footer-col h3 span { color: #e91e8c; }
+    .footer-col p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.7; }
+    .footer-divider { width: 40px; height: 3px; background: #e91e8c; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: #e91e8c; }
+    .working-hours .hours-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 14px; }
+    .working-hours .hours-row i { color: #e91e8c; }
+    .working-hours .hours-row .time { margin-left: auto; }
+    .connect .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; color: rgba(255,255,255,0.7); font-size: 14px; }
+    .connect .info-row i { color: #e91e8c; margin-top: 2px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.5); font-size: 13px; }
+    .footer-bottom .credit { color: rgba(255,255,255,0.5); font-size: 13px; display: flex; align-items: center; gap: 5px; }
+    .footer-bottom .credit .heart { color: #e91e8c; }
+
+    .back-top {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 42px; height: 42px; background: #0d1b3e;
+      border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; text-decoration: none; z-index: 9998;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, background 0.3s;
+    }
+    .back-top.show { opacity: 1; pointer-events: all; }
+    .back-top:hover { background: #e91e8c; }
+
+    @media (max-width: 800px) { .videos-grid { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .nav-links { display: none; } .videos-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } .video-modal-inner { width: 95vw; } }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo"><span>JM</span> Shipping &amp; Logistics</div>
+  <div class="contact-info">
+    <a href="mailto:jmshippinglogistics@gmail.com"><i class="fas fa-envelope"></i> jmshippinglogistics@gmail.com</a>
+    <a href="tel:+917777071674"><i class="fas fa-phone"></i> +91-7777071674</a>
+  </div>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About Us <i class="fas fa-caret-down"></i></a></li>
+    <li><a href="services.html">Services</a></li>
+    <li class="dropdown">
+      <a href="#" class="active">Gallery <i class="fas fa-caret-down"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="gallery.html">Images</a></li>
+        <li><a href="gallery_video.html">Videos</a></li>
+      </ul>
+    </li>
+    <li><a href="download.html">Downloads</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="useful_links.html">Useful Links</a></li>
+    <li><a href="contactUs.html">Contact Us</a></li>
+  </ul>
+  <a href="Brochure\JM_Shipping_Logistics_Updated.pdf" 
+   class="btn-brochure" 
+   target="_blank" 
+   rel="noopener noreferrer">
+  Download Brochure
+</a>
+</nav>
+
+<!-- PAGE HERO with network animation -->
+<section class="page-hero">
+  <canvas id="heroCanvas"></canvas>
+  <h1><span class="highlight">GALLERY</span> VIDEOS</h1>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span>
+    <span>Videos</span>
+  </div>
+</section>
+
+<!-- VIDEOS SECTION -->
+<section class="videos-section">
+  <div class="videos-grid" id="videosGrid">
+
+    <div class="video-card" data-video="videos\video1.mp4">
+      <img class="thumb" src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80" alt="Video 1"/>
+      <div class="play-btn"><i class="fas fa-play"></i></div>
+    </div>
+
+    <div class="video-card" data-video="videos\video2.mp4">
+      <img class="thumb" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" alt="Video 2"/>
+      <div class="play-btn"><i class="fas fa-play"></i></div>
+    </div>
+
+    <div class="video-card" data-video="videos\video3.mp4">
+      <img class="thumb" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80" alt="Video 3"/>
+      <div class="play-btn"><i class="fas fa-play"></i></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <span class="modal-close" id="modalClose">&times;</span>
+  <div class="video-modal-inner">
+    <video id="modalVideo" controls></video>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3><span>JM</span> Shipping &amp;<br/>Logistics</h3>
+      <p>Reliable Logistic &amp; Transport Solutions Saves Your Time!</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <div class="footer-divider"></div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery-images.html">Gallery</a></li>
+        <li><a href="contactUs.html">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="footer-col working-hours">
+      <h3>Working Hours</h3>
+      <div class="footer-divider"></div>
+      <p style="margin-bottom:16px;">We will be able to present for your services at this time.</p>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Monday-Friday:</span><span class="time">10:00-19:00</span></div>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Saturday:</span><span class="time">10:00-16:00</span></div>
+    </div>
+    <div class="footer-col connect">
+      <h3>Connect with Us</h3>
+      <div class="footer-divider"></div>
+      <div class="info-row"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+      <div class="info-row"><i class="fas fa-envelope"></i><span>jmshippinglogistics@gmail.com</span></div>
+      <div class="info-row"><i class="fas fa-phone"></i><span>+91-7777071674</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 JM Shipping &amp; Logistics. All rights reserved.</p>
+    <div class="credit">Designed &amp; Developed with <span class="heart">&#9829;</span></div>
+  </div>
+</footer>
+
+<a href="#" class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></a>
+
+<script>
+(function() {
+  /* ── Network canvas in hero ── */
+  var canvas = document.getElementById('heroCanvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, nodes = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', function() { resize(); initNodes(); });
+
+  function Node() { this.reset(); }
+  Node.prototype.reset = function() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.r  = Math.random() * 2.5 + 1;
+  };
+
+  function initNodes() {
+    nodes = [];
+    var n = Math.floor(W * H / 6000);
+    for (var i = 0; i < n; i++) nodes.push(new Node());
+  }
+  initNodes();
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(function(n) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    });
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[i].x - nodes[j].x;
+        var dy = nodes[i].y - nodes[j].y;
+        var d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(255,255,255,' + (0.25 * (1 - d/120)) + ')';
+          ctx.lineWidth = 0.8;
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(function(n) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  /* ── Video cards scroll reveal ── */
+  var cards = document.querySelectorAll('.video-card');
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e, i) {
+      if (e.isIntersecting) {
+        setTimeout(function() { e.target.classList.add('vis'); }, i * 120);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(function(c) { obs.observe(c); });
+
+  /* ── Video modal ── */
+  var modal    = document.getElementById('videoModal');
+  var modalVid = document.getElementById('modalVideo');
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var src = card.dataset.video;
+      modalVid.src = src;
+      modal.classList.add('open');
+      modalVid.play();
+    });
+  });
+
+  document.getElementById('modalClose').addEventListener('click', function() {
+    modal.classList.remove('open');
+    modalVid.pause();
+    modalVid.src = '';
+  });
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.classList.remove('open');
+      modalVid.pause();
+      modalVid.src = '';
+    }
+  });
+
+  /* ── Back to top ── */
+  var btn = document.getElementById('backTop');
+  window.addEventListener('scroll', function() { btn.classList.toggle('show', window.scrollY > 300); });
+  btn.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+</body>
+</html>

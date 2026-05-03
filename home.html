@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JM Shipping & Logistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; color: #222; overflow-x: hidden; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: #0d1b3e;
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-bar .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .top-bar .logo span { color: #e91e8c; }
+    .top-bar .contact-info {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .top-bar .contact-info a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-bar .contact-info a:hover { color: #e91e8c; }
+    .top-bar .socials {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .top-bar .socials a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .top-bar .socials a:hover { background: #e91e8c; border-color: #e91e8c; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #fff;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 22px 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active { color: #e91e8c; border-bottom-color: #e91e8c; }
+    .btn-brochure {
+      background: linear-gradient(135deg, #e91e8c, #c2185b);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+    .btn-brochure:hover { opacity: 0.9; }
+
+    /* ===== HERO SLIDER ===== */
+    .hero {
+      position: relative;
+      height: 560px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55);
+    }
+    .slide-content {
+      position: absolute;
+      bottom: 80px; left: 50px;
+      color: #fff;
+    }
+    .slide-content .sub { font-size: 14px; margin-bottom: 10px; opacity: 0.85; }
+    .slide-content h1 {
+      font-size: 62px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .slide-content h1 span { color: #e91e8c; }
+    /* dots */
+    .hero-dots {
+      position: absolute;
+      bottom: 30px; right: 40px;
+      display: flex; gap: 10px;
+    }
+    .hero-dots span {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hero-dots span.active { background: #e91e8c; width: 30px; border-radius: 8px; }
+    /* arrows */
+    .hero-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    .hero-arrow:hover { background: #e91e8c; border-color: #e91e8c; }
+    .hero-arrow.prev { left: 20px; }
+    .hero-arrow.next { left: 72px; }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-section {
+      padding: 80px 40px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Network dot pattern bg */
+    .about-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .about-section .inner {
+      max-width: 700px;
+      position: relative; z-index: 1;
+    }
+    .about-section .tag {
+      color: #e91e8c;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .about-section .tag::before {
+      content: ''; display: block;
+      width: 8px; height: 8px;
+      background: #e91e8c; border-radius: 50%;
+    }
+    .about-section h2 {
+      font-size: 40px;
+      font-weight: 800;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .about-section p {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .btn-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #9c27b0, #e91e8c);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+    .btn-explore:hover { opacity: 0.9; }
+
+    /* ===== SERVICES SECTION ===== */
+    .services-section {
+      background: #0d1b3e;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Dot particles */
+    .services-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c55 1.5px, transparent 1.5px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .services-section .tag {
+      color: #e91e8c;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .services-section h2 {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 40px;
+      max-width: 280px;
+      line-height: 1.2;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      height: 380px;
+      cursor: pointer;
+    }
+    .service-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .service-card:hover img { transform: scale(1.06); }
+    .service-card .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,27,62,0.92) 0%, rgba(13,27,62,0.3) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px 24px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover .overlay { opacity: 1; }
+    .service-card .overlay h3 {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .service-card .overlay p {
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .service-card .overlay .plus-btn {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #9c27b0, #e91e8c);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    /* ===== SERVICE AREA ===== */
+    .service-area {
+      padding: 70px 40px;
+      background: #f5f5f5;
+      text-align: center;
+    }
+    .service-area h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 40px;
+    }
+    .service-area h2 span { color: #e91e8c; }
+    .area-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .area-item {
+      position: relative;
+      height: 460px;
+      overflow: hidden;
+    }
+    .area-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
+      transition: filter 0.4s;
+    }
+    .area-item:hover img { filter: brightness(0.5); }
+    .area-item .area-content {
+      position: absolute; bottom: 30px; left: 24px;
+      color: #fff;
+    }
+    .area-item .area-content .num {
+      font-size: 36px;
+      font-weight: 800;
+      opacity: 0.7;
+      margin-bottom: 6px;
+    }
+    .area-item .area-content h3 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .area-item .area-content p {
+      font-size: 13px;
+      opacity: 0.8;
+      line-height: 1.5;
+      max-width: 200px;
+    }
+
+    /* ===== QUOTE SECTION ===== */
+    .quote-section {
+      padding: 60px 40px;
+      background: #fff;
+      position: relative;
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 55px 55px;
+      pointer-events: none;
+    }
+    .quote-box {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      position: relative; z-index: 1;
+    }
+    .quote-header {
+      background: #0d1b3e;
+      padding: 28px;
+      text-align: center;
+    }
+    .quote-header h2 {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .quote-body {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+    }
+    .quote-form {
+      background: #fff;
+      padding: 40px;
+    }
+    .quote-form h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .quote-form input {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: border-color 0.3s;
+      color: #555;
+    }
+    .quote-form input::placeholder { color: #999; }
+    .quote-form input:focus { border-color: #e91e8c; }
+    .btn-quote {
+      width: 100%;
+      background: linear-gradient(135deg, #e91e8c, #9c27b0);
+      color: #fff;
+      border: none;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: opacity 0.3s;
+    }
+    .btn-quote:hover { opacity: 0.9; }
+    .quote-visual {
+      background: linear-gradient(135deg, #9c27b0, #e91e8c, #2196f3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+    /* Logistics icon SVG-like using CSS */
+    .logistics-icon {
+      width: 160px; height: 160px;
+      border: 2px dashed rgba(255,255,255,0.5);
+      border-radius: 50%;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logistics-icon::before {
+      content: '';
+      position: absolute;
+      width: 120px; height: 120px;
+      border: 2px dashed rgba(255,255,255,0.3);
+      border-radius: 50%;
+    }
+    .logistics-icon .icon-inner {
+      width: 60px; height: 50px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 4px;
+      position: relative;
+    }
+    .logistics-icon .icon-inner::before {
+      content: '';
+      position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 14px solid rgba(255,255,255,0.8);
+    }
+    .dot-orbit {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    .dot-orbit:nth-child(1) { top: 10px; left: 50%; transform: translateX(-50%); }
+    .dot-orbit:nth-child(2) { top: 50%; right: 10px; transform: translateY(-50%); }
+    .dot-orbit:nth-child(3) { bottom: 10px; left: 50%; transform: translateX(-50%); }
+    .quote-visual p {
+      color: rgba(255,255,255,0.85);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0d1b3e;
+      padding: 60px 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c44 1.5px, transparent 1.5px);
+      background-size: 70px 70px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1.4fr 1.4fr;
+      gap: 40px;
+      position: relative; z-index: 1;
+      padding-bottom: 50px;
+    }
+    .footer-col h3 {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .footer-col h3 span { color: #e91e8c; }
+    .footer-col p {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .footer-divider {
+      width: 40px; height: 3px;
+      background: #e91e8c;
+      margin-bottom: 20px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: #e91e8c; }
+    .working-hours .hours-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+    .working-hours .hours-row i { color: #e91e8c; }
+    .working-hours .hours-row .time { margin-left: auto; }
+    .connect .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+    .connect .info-row i { color: #e91e8c; margin-top: 2px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-bottom p {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+    }
+    .footer-bottom .credit {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .footer-bottom .credit .heart { color: #e91e8c; }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .area-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .quote-body { grid-template-columns: 1fr; }
+      .quote-visual { display: none; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .area-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="logo"><span>JM</span> Shipping &amp; Logistics</div>
+  <div class="contact-info">
+    <a href="mailto:jmshippinglogistics@gmail.com"><i class="fas fa-envelope"></i> jmshippinglogistics@gmail.com</a>
+    <a href="tel:+917777071674"><i class="fas fa-phone"></i> +91-7777071674</a>
+  </div>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="download.html">Downloads</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="useful_links.html">Useful Links</a></li>
+    <li><a href="contactUs.html">Contact Us</a></li>
+  </ul>
+  <a href="Brochure\JM_Shipping_Logistics_Updated.pdf" 
+   class="btn-brochure" 
+   target="_blank" 
+   rel="noopener noreferrer">
+  Download Brochure
+</a>
+</nav>
+
+<!-- ===== HERO SLIDER ===== -->
+<section class="hero" id="hero">
+  <div class="slide active" id="slide-0">
+    <img src="images\img1.jpeg" alt="Warehouse"/>
+    <div class="slide-content">
+      <p class="sub">JM Shipping &amp; Logistics</p>
+      <h1><span>Customer Clearance</span></h1>
+    </div>
+  </div>
+  <div class="slide" id="slide-1">
+    <img src="images\img2.jpeg" alt="Cargo Ship"/>
+    <div class="slide-content">
+      <p class="sub">JM Shipping &amp; Logistics</p>
+      <h1><span>Fright Forwarding</span></h1>
+    </div>
+  </div>
+  <div class="slide" id="slide-2">
+    <img src="images\img3.jpeg" alt="Road Transport"/>
+    <div class="slide-content">
+      <p class="sub">JM Shipping &amp; Logistics</p>
+      <h1><span>Transporataion</span></h1>
+    </div>
+  </div>
+  <div class="slide" id="slide-3">
+    <img src="images\img4.jpeg" alt="Air Freight"/>
+    <div class="slide-content">
+      <p class="sub">JM Shipping &amp; Logistics</p>
+      <h1><span>Warehousing</span> Solutions</h1>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+
+  <div class="hero-dots" id="dots">
+    <span class="active" onclick="goToSlide(0)"></span>
+    <span onclick="goToSlide(1)"></span>
+    <span onclick="goToSlide(2)"></span>
+    <span onclick="goToSlide(3)"></span>
+  </div>
+</section>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section class="about-section">
+  <div class="inner">
+    <div class="tag">Welcome to JM Shipping &amp; Logistics International Shipping</div>
+    <h2>Providing Full Range of<br/>Logistics Solutions Worldwide</h2>
+    <p>
+      We are pleased to introduce ourselves that we are one of the leading global logistics international shipping
+      and best Freight Forwarders in Mumbai. We are providing superior service to our client in export &amp; import
+      work with prompt and timely service, having good knowledge staff in portend office. We provide total
+      logistics solution including Customs Clearance, International Freight Forwarding, Local Transportation
+      arranging warehouses for goods, and license registration/verification from customs.
+    </p>
+    <a href="#" class="btn-explore">Explore More &rarr;</a>
+  </div>
+</section>
+
+<!-- ===== SERVICES SECTION ===== -->
+<section class="services-section">
+  <div class="tag">Services</div>
+  <h2>Checkout our All Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Heavy Lifts"/>
+      <div class="overlay">
+        <h3>CUSTOM CLEARANCE</h3>
+        <p>Navigate complex custom regulations effortlessly. our experts ensure swift clearance.</p>
+        <div class="plus-btn">+</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80" alt="Road Transport"/>
+      <div class="overlay">
+        <h3>FREIGHT FORWARDING</h3>
+        <p>Comprehnsive air and sea fright solutions tailored tailored to your timeline and budget. we optimize route and carriers to deliver cost effective  shipping worldwide.</p>
+        <div class="plus-btn">+</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?w=600&q=80" alt="Sea Transport"/>
+      <div class="overlay">
+        <h3>TRANSPORTAION</h3>
+        <p>Reliable ground transportation solutions ensuring your cargo moves safely from port to destination. Our fleet and network guarantee timely deliveries.</p>
+        <div class="plus-btn">+</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&q=80" alt="Rail Transport"/>
+      <div class="overlay">
+        <h3>WARE HOUSING SOLUTIONS</h3>
+        <p>Secure, climate-controlled storage facilities for short or long-term needs. Professional inventory management keeps your goods safe and accessible.</p>
+        <div class="plus-btn">+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICE AREA ===== -->
+<section class="service-area">
+  <h2>JM SHIPPING &amp; LOGISTICS <span>SERVICE AREA</span></h2>
+  <div class="area-grid">
+    <div class="area-item">
+      <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Heavy Lifts"/>
+      <div class="area-content">
+        <div class="num">01</div>
+        <h3>Heavy Lifts/ Project<br/>Cargos/ ODC</h3>
+      </div>
+    </div>
+    <div class="area-item">
+      <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80" alt="Road Transport"/>
+      <div class="area-content">
+        <div class="num">02</div>
+        <h3>ROAD TRANSPORT</h3>
+        <p>Reliable road freight services across the country with timely delivery.</p>
+      </div>
+    </div>
+    <div class="area-item">
+      <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?w=600&q=80" alt="Sea Transport"/>
+      <div class="area-content">
+        <div class="num">03</div>
+        <h3>SEA TRANSPORT</h3>
+      </div>
+    </div>
+    <div class="area-item">
+      <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&q=80" alt="Rail Transport"/>
+      <div class="area-content">
+        <div class="num">04</div>
+        <h3>RAIL TRANSPORT</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REQUEST A QUOTE ===== -->
+<section class="quote-section">
+  <div class="quote-box">
+    <div class="quote-header">
+      <h2>Request A Quote</h2>
+    </div>
+    <div class="quote-body">
+      <div class="quote-form">
+        <h3>Personal Data</h3>
+        <div class="form-row">
+          <input type="text" placeholder="Name"/>
+          <input type="email" placeholder="Email"/>
+          <input type="tel" placeholder="Phone"/>
+        </div>
+        <h3>Shipping Data</h3>
+        <div class="form-row" style="margin-top:14px;">
+          <input type="text" placeholder="POL (Port of Landing)"/>
+          <input type="text" placeholder="POD (Port of Delivery)"/>
+          <input type="text" placeholder="Equipment Type"/>
+        </div>
+        <div class="form-row-2">
+          <input type="text" placeholder="Cargo"/>
+          <input type="text" placeholder="Weight"/>
+        </div>
+        <button class="btn-quote">Request for A Quote</button>
+      </div>
+      <div class="quote-visual">
+        <div class="logistics-icon">
+          <span class="dot-orbit"></span>
+          <span class="dot-orbit"></span>
+          <span class="dot-orbit"></span>
+          <div class="icon-inner"></div>
+        </div>
+        <p>Global Logistics Solutions</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3><span>JM</span> Shipping &amp;<br/>Logistics</h3>
+      <p>Reliable Logistic &amp; Transport Solutions Saves Your Time!</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <div class="footer-divider"></div>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contactUs.html">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="footer-col working-hours">
+      <h3>Working Hours</h3>
+      <div class="footer-divider"></div>
+      <p style="margin-bottom:16px;">We will be able to present for your services at this time.</p>
+      <div class="hours-row">
+        <i class="fas fa-clock"></i>
+        <span>Monday-Friday:</span>
+        <span class="time">10:00-19:00</span>
+      </div>
+      <div class="hours-row">
+        <i class="fas fa-clock"></i>
+        <span>Saturday:</span>
+        <span class="time">10:00-16:00</span>
+      </div>
+    </div>
+    <div class="footer-col connect">
+      <h3>Connect with Us</h3>
+      <div class="footer-divider"></div>
+      <div class="info-row">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Mumbai, Maharashtra, India</span>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-envelope"></i>
+        <span>info@jmshipping.com</span>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-phone"></i>
+        <span>+91-9702618333</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 JM Shipping &amp; Logistics. All rights reserved.</p>
+    <div class="credit">Designed &amp; Developed with <span class="heart">&#9829;</span></div>
+  </div>
+</footer>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('#dots span');
+  const total = slides.length;
+
+  function goToSlide(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function changeSlide(dir) {
+    goToSlide(current + dir);
+  }
+
+  // Auto-slide every 4 seconds
+  setInterval(() => changeSlide(1), 4000);
+</script>
+</body>
+</html>

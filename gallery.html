@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery Images | JM Shipping &amp; Logistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; color: #222; overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar {
+      background: #0d1b3e; padding: 10px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .top-bar .logo { font-size: 22px; font-weight: 700; color: #fff; }
+    .top-bar .logo span { color: #e91e8c; }
+    .top-bar .contact-info { display: flex; gap: 30px; align-items: center; }
+    .top-bar .contact-info a { color: #ccc; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+    .top-bar .contact-info a:hover { color: #e91e8c; }
+    .top-bar .socials { display: flex; gap: 10px; align-items: center; }
+    .top-bar .socials a {
+      width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; text-decoration: none; transition: all 0.3s;
+    }
+    .top-bar .socials a:hover { background: #e91e8c; border-color: #e91e8c; }
+
+    /* NAVBAR */
+    nav {
+      background: #fff; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li { position: relative; }
+    .nav-links li a {
+      display: flex; align-items: center; gap: 5px;
+      padding: 22px 20px; text-decoration: none;
+      color: #333; font-size: 14px; font-weight: 500;
+      transition: color 0.3s; border-bottom: 3px solid transparent;
+    }
+    .nav-links li a i { font-size: 10px; }
+    .nav-links li a:hover, .nav-links li a.active { color: #e91e8c; border-bottom-color: #e91e8c; }
+    /* Dropdown */
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #fff; min-width: 160px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999;
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu li a {
+      padding: 14px 20px; border-bottom: none; display: block;
+      font-size: 14px; color: #333;
+    }
+    .dropdown-menu li a:hover { color: #e91e8c; background: #fafafa; }
+    .dropdown-menu li a.active-sub { color: #e91e8c; }
+    .btn-brochure {
+      background: linear-gradient(135deg, #e91e8c, #c2185b);
+      color: #fff; border: none; padding: 14px 28px;
+      border-radius: 4px; font-size: 15px; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: opacity 0.3s;
+    }
+    .btn-brochure:hover { opacity: 0.9; }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #3a0a6e 0%, #6a1b9a 25%, #9c27b0 45%, #c2185b 70%, #e91e8c 100%);
+      padding: 75px 40px 90px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1.5px, transparent 1.5px);
+      background-size: 44px 44px; pointer-events: none;
+    }
+    .page-hero h1 {
+      font-size: 44px; font-weight: 800; color: #fff;
+      letter-spacing: 4px; position: relative; z-index: 1; margin-bottom: 16px;
+      animation: heroDown 0.7s cubic-bezier(.22,1,.36,1) both;
+    }
+    .breadcrumb {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: 14px; color: rgba(255,255,255,0.88);
+      animation: heroDown 0.7s 0.15s cubic-bezier(.22,1,.36,1) both;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.88); text-decoration: none; }
+    .breadcrumb a:hover { color: #fff; }
+    .breadcrumb .sep i { font-size: 11px; color: #00bcd4; }
+    @keyframes heroDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GALLERY SECTION */
+    .gallery-section {
+      background: #f5f5f5; padding: 60px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .gallery-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; gap: 10px; justify-content: center; margin-bottom: 40px;
+      flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .filter-btn {
+      padding: 10px 24px; border: 2px solid #ddd; background: #fff;
+      font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.3s; color: #555;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, #0d1b3e, #1a237e);
+      color: #fff; border-color: #0d1b3e;
+    }
+
+    /* Grid */
+    .gallery-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 6px; position: relative; z-index: 1;
+    }
+    .gallery-item {
+      position: relative; overflow: hidden; aspect-ratio: 1;
+      cursor: pointer;
+      opacity: 0; transform: scale(0.92);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .gallery-item.vis { opacity: 1; transform: scale(1); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(13,27,62,0.0), rgba(233,30,140,0.0));
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.4s;
+    }
+    .gallery-item:hover .overlay {
+      background: linear-gradient(135deg, rgba(13,27,62,0.6), rgba(233,30,140,0.5));
+    }
+    .gallery-item .zoom-icon {
+      color: #fff; font-size: 28px;
+      opacity: 0; transform: scale(0.5);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .gallery-item:hover .zoom-icon { opacity: 1; transform: scale(1); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      z-index: 9999; display: none;
+      align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 85vh; object-fit: contain;
+      border: 3px solid rgba(255,255,255,0.1);
+      animation: lbIn 0.3s ease;
+    }
+    @keyframes lbIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      color: #fff; font-size: 36px; cursor: pointer;
+      transition: color 0.3s;
+    }
+    .lightbox-close:hover { color: #e91e8c; }
+    .lightbox-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 32px; cursor: pointer;
+      background: rgba(255,255,255,0.1); border: none;
+      width: 50px; height: 50px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .lightbox-arrow:hover { background: #e91e8c; }
+    .lightbox-arrow.prev { left: 20px; }
+    .lightbox-arrow.next { right: 20px; }
+
+    /* FOOTER */
+    footer {
+      background: #0d1b3e; padding: 60px 40px 0;
+      position: relative; overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c44 1.5px, transparent 1.5px);
+      background-size: 70px 70px; pointer-events: none; opacity: 0.35;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr 1.4fr 1.4fr;
+      gap: 40px; position: relative; z-index: 1; padding-bottom: 50px;
+    }
+    .footer-col h3 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+    .footer-col h3 span { color: #e91e8c; }
+    .footer-col p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.7; }
+    .footer-divider { width: 40px; height: 3px; background: #e91e8c; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: #e91e8c; }
+    .working-hours .hours-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 14px; }
+    .working-hours .hours-row i { color: #e91e8c; }
+    .working-hours .hours-row .time { margin-left: auto; }
+    .connect .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; color: rgba(255,255,255,0.7); font-size: 14px; }
+    .connect .info-row i { color: #e91e8c; margin-top: 2px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.5); font-size: 13px; }
+    .footer-bottom .credit { color: rgba(255,255,255,0.5); font-size: 13px; display: flex; align-items: center; gap: 5px; }
+    .footer-bottom .credit .heart { color: #e91e8c; }
+
+    .back-top {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 42px; height: 42px; background: #0d1b3e;
+      border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; text-decoration: none; z-index: 9999;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, background 0.3s;
+    }
+    .back-top.show { opacity: 1; pointer-events: all; }
+    .back-top:hover { background: #e91e8c; }
+
+    @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .nav-links { display: none; } .gallery-grid { grid-template-columns: repeat(2, 1fr); } .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo"><span>JM</span> Shipping &amp; Logistics</div>
+  <div class="contact-info">
+    <a href="mailto:jmshippinglogistics@gmail.com"><i class="fas fa-envelope"></i> jmshippinglogistics@gmail.com</a>
+    <a href="tel:+917777071674"><i class="fas fa-phone"></i> +91-7777071674</a>
+  </div>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About Us <i class="fas fa-caret-down"></i></a></li>
+    <li><a href="services.html">Services</a></li>
+    <li class="dropdown">
+      <a href="#" class="active">Gallery <i class="fas fa-caret-down"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="gallery.html" class="active-sub">Images</a></li>
+        <li><a href="gallery_video.html">Videos</a></li>
+      </ul>
+    </li>
+    <li><a href="download.html">Downloads</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="useful_links.html">Useful Links</a></li>
+    <li><a href="contactUs.html">Contact Us</a></li>
+  </ul>
+  <a href="Brochure\JM_Shipping_Logistics_Updated.pdf" 
+   class="btn-brochure" 
+   target="_blank" 
+   rel="noopener noreferrer">
+  Download Brochure
+</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <h1>GALLERY IMAGES</h1>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span>
+    <span>Images</span>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="filter-tabs">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="freight">Freight</button>
+    <button class="filter-btn" data-filter="warehouse">Warehouse</button>
+    <button class="filter-btn" data-filter="transport">Transport</button>
+    <button class="filter-btn" data-filter="port">Port</button>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Items injected by JS -->
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <button class="lightbox-arrow prev" id="lbPrev"><i class="fas fa-chevron-left"></i></button>
+  <img id="lbImg" src="" alt=""/>
+  <button class="lightbox-arrow next" id="lbNext"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3><span>JM</span> Shipping &amp;<br/>Logistics</h3>
+      <p>Reliable Logistic &amp; Transport Solutions Saves Your Time!</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <div class="footer-divider"></div>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contactUs.html">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="footer-col working-hours">
+      <h3>Working Hours</h3>
+      <div class="footer-divider"></div>
+      <p style="margin-bottom:16px;">We will be able to present for your services at this time.</p>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Monday-Friday:</span><span class="time">10:00-19:00</span></div>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Saturday:</span><span class="time">10:00-16:00</span></div>
+    </div>
+    <div class="footer-col connect">
+      <h3>Connect with Us</h3>
+      <div class="footer-divider"></div>
+      <div class="info-row"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+      <div class="info-row"><i class="fas fa-envelope"></i><span>jmshippinglogistics@gmail.com</span></div>
+      <div class="info-row"><i class="fas fa-phone"></i><span>+91-7777071674</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 JM Shipping &amp; Logistics. All rights reserved.</p>
+    <div class="credit">Designed &amp; Developed with <span class="heart">&#9829;</span></div>
+  </div>
+</footer>
+
+<a href="#" class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></a>
+
+<script>
+(function() {
+  var images = [
+    { src: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80', cat: 'port' },
+    { src: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80', cat: 'transport' },
+    { src: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&q=80', cat: 'warehouse' },
+    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', cat: 'transport' },
+    { src: 'https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=80', cat: 'port' },
+    { src: 'https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=600&q=80', cat: 'transport' },
+    { src: 'https://images.unsplash.com/photo-1494412519320-aa613dfb7738?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1542296332-2e4473faf563?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80', cat: 'warehouse' },
+    { src: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80', cat: 'freight' },
+    { src: 'https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=600&q=80', cat: 'port' },
+    { src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80', cat: 'warehouse' },
+    { src: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&q=80', cat: 'transport' },
+  ];
+
+  var currentFilter = 'all';
+  var filtered = images.slice();
+  var lbIdx = 0;
+
+  function buildGrid(filter) {
+    currentFilter = filter;
+    filtered = filter === 'all' ? images : images.filter(function(img) { return img.cat === filter; });
+    var grid = document.getElementById('galleryGrid');
+    grid.innerHTML = '';
+    filtered.forEach(function(img, i) {
+      var item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.innerHTML = '<img src="' + img.src + '" alt="Gallery ' + (i+1) + '"/>' +
+        '<div class="overlay"><i class="fas fa-search-plus zoom-icon"></i></div>';
+      item.addEventListener('click', function() { openLightbox(i); });
+      grid.appendChild(item);
+      setTimeout(function() { item.classList.add('vis'); }, i * 60);
+    });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      buildGrid(btn.dataset.filter);
+    });
+  });
+
+  // Lightbox
+  function openLightbox(idx) {
+    lbIdx = idx;
+    document.getElementById('lbImg').src = filtered[lbIdx].src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  document.getElementById('lbClose').addEventListener('click', function() {
+    document.getElementById('lightbox').classList.remove('open');
+  });
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+  document.getElementById('lbPrev').addEventListener('click', function() {
+    lbIdx = (lbIdx - 1 + filtered.length) % filtered.length;
+    document.getElementById('lbImg').src = filtered[lbIdx].src;
+  });
+  document.getElementById('lbNext').addEventListener('click', function() {
+    lbIdx = (lbIdx + 1) % filtered.length;
+    document.getElementById('lbImg').src = filtered[lbIdx].src;
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+  });
+
+  // Back to top
+  var btn = document.getElementById('backTop');
+  window.addEventListener('scroll', function() { btn.classList.toggle('show', window.scrollY > 300); });
+  btn.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  buildGrid('all');
+})();
+</script>
+</body>
+</html>

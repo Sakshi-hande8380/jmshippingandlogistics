@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services | JM Shipping &amp; Logistics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; color: #222; overflow-x: hidden; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: #0d1b3e;
+      padding: 10px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .top-bar .logo { font-size: 22px; font-weight: 700; color: #fff; }
+    .top-bar .logo span { color: #e91e8c; }
+    .top-bar .contact-info { display: flex; gap: 30px; align-items: center; }
+    .top-bar .contact-info a {
+      color: #ccc; text-decoration: none; font-size: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .top-bar .contact-info a:hover { color: #e91e8c; }
+    .top-bar .socials { display: flex; gap: 10px; align-items: center; }
+    .top-bar .socials a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; text-decoration: none; transition: all 0.3s;
+    }
+    .top-bar .socials a:hover { background: #e91e8c; border-color: #e91e8c; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #fff; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li a {
+      display: flex; align-items: center; gap: 5px;
+      padding: 22px 20px; text-decoration: none;
+      color: #333; font-size: 14px; font-weight: 500;
+      transition: color 0.3s; border-bottom: 3px solid transparent;
+    }
+    .nav-links li a i { font-size: 10px; }
+    .nav-links li a:hover,
+    .nav-links li a.active { color: #e91e8c; border-bottom-color: #e91e8c; }
+    .btn-brochure {
+      background: linear-gradient(135deg, #e91e8c, #c2185b);
+      color: #fff; border: none; padding: 14px 28px;
+      border-radius: 4px; font-size: 15px; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: opacity 0.3s;
+    }
+    .btn-brochure:hover { opacity: 0.9; }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background: linear-gradient(135deg,
+        #3a0a6e 0%, #6a1b9a 25%, #9c27b0 45%,
+        #c2185b 70%, #e91e8c 100%);
+      padding: 75px 40px 90px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1.5px, transparent 1.5px);
+      background-size: 44px 44px; pointer-events: none;
+    }
+    .page-hero h1 {
+      font-size: 44px; font-weight: 800; color: #fff;
+      letter-spacing: 4px; position: relative; z-index: 1; margin-bottom: 16px;
+      animation: heroDown 0.7s cubic-bezier(.22,1,.36,1) both;
+    }
+    .breadcrumb {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: 14px; color: rgba(255,255,255,0.88);
+      animation: heroDown 0.7s 0.15s cubic-bezier(.22,1,.36,1) both;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.88); text-decoration: none; }
+    .breadcrumb a:hover { color: #fff; }
+    .breadcrumb .sep i { font-size: 11px; color: #00bcd4; }
+    @keyframes heroDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SERVICES LAYOUT ===== */
+    .services-layout {
+      background: #f5f5f5; padding: 70px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .services-layout::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .services-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 340px 1fr;
+      gap: 40px; position: relative; z-index: 1;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar-title { font-size: 26px; font-weight: 800; color: #111; margin-bottom: 22px; }
+    .service-list { list-style: none; margin-bottom: 30px; }
+    .service-list li { margin-bottom: 6px; }
+    .service-list li a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px;
+      background: #fff; border: 1.5px solid #e0e0e0;
+      color: #555; font-size: 12.5px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.8px; text-transform: uppercase;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .service-list li a::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+      background: linear-gradient(135deg, #0d1b3e, #1a237e);
+      transition: width 0.35s ease; z-index: 0;
+    }
+    .service-list li a span,
+    .service-list li a .arr { position: relative; z-index: 1; }
+    .service-list li a:hover::before,
+    .service-list li a.active::before { width: 100%; }
+    .service-list li a:hover,
+    .service-list li a.active { color: #fff; border-color: #0d1b3e; }
+    .service-list li a .arr { font-size: 16px; }
+
+    /* Support Box */
+    .support-box {
+      background: linear-gradient(160deg, #1565c0, #0d1b3e);
+      padding: 30px;
+    }
+    .support-box h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .support-box p  { font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 18px; }
+    .support-box input,
+    .support-box textarea {
+      width: 100%; padding: 12px 14px; margin-bottom: 10px;
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.4);
+      color: #fff; font-family: 'Poppins', sans-serif; font-size: 13px;
+      outline: none; transition: border 0.3s;
+    }
+    .support-box input::placeholder,
+    .support-box textarea::placeholder { color: rgba(255,255,255,0.55); }
+    .support-box input:focus,
+    .support-box textarea:focus { border-color: #e91e8c; }
+    .support-box textarea { resize: vertical; height: 95px; }
+    .btn-contact {
+      background: #fff; color: #0d1b3e;
+      border: none; padding: 12px 28px;
+      font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.5px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+    .btn-contact:hover { background: #e91e8c; color: #fff; transform: translateY(-2px); }
+
+    /* ===== DETAIL PANEL ===== */
+    .service-detail { position: relative; }
+    .globe-watermark {
+      position: absolute; right: -40px; bottom: 0;
+      width: 340px; height: 340px; pointer-events: none; opacity: 0.06; z-index: 0;
+    }
+    .globe-watermark svg { width: 100%; height: 100%; }
+    .detail-content { position: relative; z-index: 1; }
+    .service-images {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4px; margin-bottom: 28px;
+    }
+    .service-images img {
+      width: 100%; height: 195px; object-fit: cover;
+      transition: transform 0.4s, filter 0.3s;
+    }
+    .service-images img:hover { transform: scale(1.03); filter: brightness(1.08); }
+    .detail-content h2 {
+      font-size: 18px; font-weight: 800; color: #111;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 2px solid #e91e8c;
+    }
+    .detail-content p { font-size: 14px; line-height: 1.85; color: #555; margin-bottom: 20px; }
+    .specialties-title { font-size: 15px; font-weight: 600; color: #222; margin-bottom: 12px; }
+    .specialties-list { list-style: none; }
+    .specialties-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; font-size: 14px; color: #444;
+      border-bottom: 1px solid #e8e8e8;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .specialties-list li.vis { opacity: 1; transform: translateY(0); }
+    .specialties-list li i { color: #0d1b3e; font-size: 15px; margin-top: 2px; flex-shrink: 0; }
+
+    /* ===== COUNTER STRIP ===== */
+    .counter-strip {
+      background: #0d1b3e; padding: 50px 40px;
+      position: relative; overflow: hidden;
+    }
+    .counter-strip::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c55 1.5px, transparent 1.5px);
+      background-size: 80px 80px; pointer-events: none; opacity: 0.4;
+    }
+    .counter-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; position: relative; z-index: 1;
+    }
+    .counter-item {
+      text-align: center;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .counter-item.vis { opacity: 1; transform: translateY(0); }
+    .counter-item .num {
+      font-size: 46px; font-weight: 800;
+      background: linear-gradient(135deg, #fff, #e91e8c);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .counter-item .lbl {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      margin-top: 8px; letter-spacing: 0.5px;
+    }
+
+    /* ===== ALL SERVICES CARDS ===== */
+    .all-services-section {
+      background: #fff; padding: 70px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .all-services-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c22 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
+    }
+    .section-head {
+      max-width: 1280px; margin: 0 auto 44px; position: relative; z-index: 1;
+    }
+    .section-head .tag {
+      color: #e91e8c; font-size: 13px; font-weight: 600; letter-spacing: 1px;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-head .tag::before {
+      content: ''; width: 8px; height: 8px;
+      background: #e91e8c; border-radius: 50%; display: block;
+    }
+    .section-head h2 { font-size: 36px; font-weight: 800; color: #111; line-height: 1.2; }
+    .cards-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; position: relative; z-index: 1;
+    }
+    .srv-card {
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); background: #fff;
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+    }
+    .srv-card.vis { opacity: 1; transform: translateY(0); }
+    .srv-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+    .srv-card .img-wrap { position: relative; height: 200px; overflow: hidden; }
+    .srv-card .img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease;
+    }
+    .srv-card:hover .img-wrap img { transform: scale(1.07); }
+    .srv-card .img-wrap .badge {
+      position: absolute; top: 16px; left: 16px;
+      background: linear-gradient(135deg, #9c27b0, #e91e8c);
+      color: #fff; font-size: 11px; font-weight: 700;
+      padding: 5px 12px; border-radius: 4px; letter-spacing: 0.5px;
+    }
+    .srv-card .body { padding: 22px 24px 26px; }
+    .srv-card .body h3 { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .srv-card .body p  { font-size: 13px; color: #666; line-height: 1.7; margin-bottom: 18px; }
+    .srv-card .body .read-more {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #e91e8c; font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: gap 0.3s;
+    }
+    .srv-card:hover .body .read-more { gap: 10px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0d1b3e; padding: 60px 40px 0;
+      position: relative; overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #e91e8c44 1.5px, transparent 1.5px);
+      background-size: 70px 70px; pointer-events: none; opacity: 0.35;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr 1.4fr 1.4fr;
+      gap: 40px; position: relative; z-index: 1; padding-bottom: 50px;
+    }
+    .footer-col h3 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+    .footer-col h3 span { color: #e91e8c; }
+    .footer-col p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.7; }
+    .footer-divider { width: 40px; height: 3px; background: #e91e8c; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: #e91e8c; }
+    .working-hours .hours-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px; color: rgba(255,255,255,0.7); font-size: 14px;
+    }
+    .working-hours .hours-row i { color: #e91e8c; }
+    .working-hours .hours-row .time { margin-left: auto; }
+    .connect .info-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 14px; color: rgba(255,255,255,0.7); font-size: 14px;
+    }
+    .connect .info-row i { color: #e91e8c; margin-top: 2px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.5); font-size: 13px; }
+    .footer-bottom .credit { color: rgba(255,255,255,0.5); font-size: 13px; display: flex; align-items: center; gap: 5px; }
+    .footer-bottom .credit .heart { color: #e91e8c; }
+
+    /* Back to top */
+    .back-top {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 42px; height: 42px; background: #0d1b3e;
+      border: 1px solid rgba(255,255,255,0.2); color: #fff;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; text-decoration: none; z-index: 9999;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, background 0.3s;
+    }
+    .back-top.show { opacity: 1; pointer-events: all; }
+    .back-top:hover { background: #e91e8c; }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .services-inner { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .counter-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .counter-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .service-images { grid-template-columns: 1fr; }
+      .page-hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo"><span>JM</span> Shipping &amp; Logistics</div>
+  <div class="contact-info">
+    <a href="mailto:jmshippinglogistics@gmail.com"><i class="fas fa-envelope"></i> jmshippinglogistics@gmail.com</a>
+    <a href="tel:+917777071674"><i class="fas fa-phone"></i> +91-7777071674</a>
+  </div>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About Us <i class="fas fa-caret-down"></i></a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="download.html">Downloads</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="useful_links.html">Useful Links</a></li>
+    <li><a href="contactUs.html">Contact Us</a></li>
+  </ul>
+  <a href="Brochure\JM_Shipping_Logistics_Updated.pdf" 
+   class="btn-brochure" 
+   target="_blank" 
+   rel="noopener noreferrer">
+  Download Brochure
+</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <h1>SERVICES</h1>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="sep"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span>
+    <span>Services</span>
+  </div>
+</section>
+
+<!-- SERVICES LAYOUT -->
+<section class="services-layout">
+  <div class="services-inner">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2 class="sidebar-title">All Services</h2>
+      <ul class="service-list" id="serviceMenu">
+        <li><a href="#" class="active" data-key="ocean"><span>Ocean Freight</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="custom"><span>Custom Clearance</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="air"><span>Air Freight</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="consolidation"><span>Air &amp; Sea Consolidation</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="door"><span>Door To Door Services</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="insurance"><span>Insurance Services</span><span class="arr">›</span></a></li>
+        <li><a href="#" data-key="consultancy"><span>Consultancy, Certification &amp; Compliances</span><span class="arr">›</span></a></li>
+      </ul>
+      <div class="support-box">
+        <h3>24/7 ONLINE SUPPORT</h3>
+        <p>Get immediate quotes &amp; book shipment</p>
+        <input type="text" placeholder="Name"/>
+        <input type="email" placeholder="Email"/>
+        <textarea placeholder="Your Question Here"></textarea>
+        <button class="btn-contact">Contact Now</button>
+      </div>
+    </div>
+
+    <!-- DETAIL PANEL -->
+    <div class="service-detail">
+      <div class="globe-watermark">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="#0d1b3e" stroke-width="4"/>
+          <ellipse cx="100" cy="100" rx="50" ry="95" fill="none" stroke="#0d1b3e" stroke-width="3"/>
+          <ellipse cx="100" cy="100" rx="95" ry="40" fill="none" stroke="#0d1b3e" stroke-width="2"/>
+          <ellipse cx="100" cy="100" rx="95" ry="20" fill="none" stroke="#0d1b3e" stroke-width="2"/>
+          <line x1="5" y1="100" x2="195" y2="100" stroke="#0d1b3e" stroke-width="2"/>
+          <line x1="100" y1="5" x2="100" y2="195" stroke="#0d1b3e" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="detail-content" id="detailContent"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COUNTER STRIP -->
+<section class="counter-strip" id="counterStrip">
+  <div class="counter-grid">
+    <div class="counter-item" data-target="500"><div class="num" id="c1">0</div><div class="lbl">Happy Clients</div></div>
+    <div class="counter-item" data-target="1200"><div class="num" id="c2">0</div><div class="lbl">Shipments Delivered</div></div>
+    <div class="counter-item" data-target="48"><div class="num" id="c3">0</div><div class="lbl">Countries Covered</div></div>
+    <div class="counter-item" data-target="10"><div class="num" id="c4">0</div><div class="lbl">Years Experience</div></div>
+  </div>
+</section>
+
+<!-- ALL SERVICES CARDS -->
+<section class="all-services-section">
+  <div class="section-head">
+    <div class="tag">What We Offer</div>
+    <h2>Complete Logistics Solutions</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="srv-card" data-delay="0">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80" alt="Ocean Freight"/>
+        <span class="badge">SEA</span>
+      </div>
+      <div class="body">
+        <h3>Ocean Freight (FCL / LCL)</h3>
+        <p>Full and less-than-container load sea freight solutions connecting you to every major port worldwide with competitive rates.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="srv-card" data-delay="100">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80" alt="Custom Clearance"/>
+        <span class="badge">CUSTOMS</span>
+      </div>
+      <div class="body">
+        <h3>Custom Clearance</h3>
+        <p>Expert customs brokers handling all documentation, tariff classifications and duty calculations for smooth import &amp; export clearance.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="srv-card" data-delay="200">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&q=80" alt="Air Freight"/>
+        <span class="badge">AIR</span>
+      </div>
+      <div class="body">
+        <h3>Air Freight Services</h3>
+        <p>Time-critical air cargo solutions with access to global airline networks, offering both charter and general cargo options.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="srv-card" data-delay="0">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80" alt="Consolidation"/>
+        <span class="badge">CONSOLIDATION</span>
+      </div>
+      <div class="body">
+        <h3>Air &amp; Sea Consolidation</h3>
+        <p>Cost-effective groupage services for smaller shipments with weekly sailings and flights to all major global trade lanes.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="srv-card" data-delay="100">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Door to Door"/>
+        <span class="badge">D2D</span>
+      </div>
+      <div class="body">
+        <h3>Door To Door Services</h3>
+        <p>Complete end-to-end logistics from pick-up at origin to final delivery, including customs, freight and last-mile handling.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="srv-card" data-delay="200">
+      <div class="img-wrap">
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="Insurance"/>
+        <span class="badge">INSURANCE</span>
+      </div>
+      <div class="body">
+        <h3>Insurance &amp; Consultancy</h3>
+        <p>Comprehensive cargo insurance and trade consultancy covering certifications, compliance and EXIM policy advisory services.</p>
+        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3><span>JM</span> Shipping &amp;<br/>Logistics</h3>
+      <p>Reliable Logistic &amp; Transport Solutions Saves Your Time!</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <div class="footer-divider"></div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="footer-col working-hours">
+      <h3>Working Hours</h3>
+      <div class="footer-divider"></div>
+      <p style="margin-bottom:16px;">We will be able to present for your services at this time.</p>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Monday-Friday:</span><span class="time">10:00-19:00</span></div>
+      <div class="hours-row"><i class="fas fa-clock"></i><span>Saturday:</span><span class="time">10:00-16:00</span></div>
+    </div>
+    <div class="footer-col connect">
+      <h3>Connect with Us</h3>
+      <div class="footer-divider"></div>
+      <div class="info-row"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+      <div class="info-row"><i class="fas fa-envelope"></i><span>jmshippinglogistics@gmail.com</span></div>
+      <div class="info-row"><i class="fas fa-phone"></i><span>+91-7777071674</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 JM Shipping &amp; Logistics. All rights reserved.</p>
+    <div class="credit">Designed &amp; Developed with <span class="heart">&#9829;</span></div>
+  </div>
+</footer>
+
+<a href="#" class="back-top" id="backTop"><i class="fas fa-arrow-up"></i></a>
+
+<script>
+(function () {
+  'use strict';
+
+  var services = {
+    ocean: {
+      title: 'OCEAN FREIGHT (FCL/LCL, EXPORT/IMPORT, SEA/AIR)',
+      images: [
+        'https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=600&q=80',
+        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80',
+        'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80',
+        'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80'
+      ],
+      desc: 'We provide specialized and comprehensive Ocean Freight Services for full container loads. We offer a wide range of containers including 20\' and 40\' dry boxes, Flat Racks, Open Tops to meet different needs. We offer containers at your convenience to stuff the cargo at your Factory/CFS/Warehouse/ICD. All our containers undergo strict periodic inspection checks to ensure they comply with international norms, providing you with complete safety for your cargo.',
+      specialties: [
+        'Experiential knowledge of trade to help ease the pain of shipping.',
+        'JMS provides hands-on service and follow through on difficult shipments.',
+        'We are committed to our customers and to developing long-term relationships.',
+        'We save our customers time, effort, and money on every shipment.'
+      ]
+    },
+    custom: {
+      title: 'CUSTOM CLEARANCE SERVICES (IMPORT & EXPORT)',
+      images: [
+        'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
+        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80'
+      ],
+      desc: 'Our team of expert customs brokers ensures smooth and efficient customs clearance for all your imports and exports. We handle all paperwork, tariff classifications, duty calculations, and liaison with customs authorities so you can focus on your core business without delays.',
+      specialties: [
+        'Expert knowledge of customs regulations and compliance requirements.',
+        'End-to-end documentation support for all import/export consignments.',
+        'Fast-track clearance to minimize port detention charges.',
+        'Dedicated compliance officers assigned to each client account.'
+      ]
+    },
+    air: {
+      title: 'AIR FREIGHT SERVICES (IMPORT & EXPORT)',
+      images: [
+        'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&q=80',
+        'https://images.unsplash.com/photo-1542296332-2e4473faf563?w=600&q=80',
+        'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80',
+        'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&q=80'
+      ],
+      desc: 'JM Shipping and Logistics offers comprehensive air freight solutions for time-critical shipments. We work with major airlines worldwide to ensure your cargo reaches its destination quickly and safely, offering both charter and general cargo options at competitive rates.',
+      specialties: [
+        'Access to extensive airline network for competitive freight rates.',
+        'Specialized handling for perishables, pharmaceuticals, and high-value cargo.',
+        'Real-time tracking and status updates on all air shipments.',
+        'Door-to-door air freight with seamless customs integration.'
+      ]
+    },
+    consolidation: {
+      title: 'AIR & SEA CONSOLIDATION SERVICES',
+      images: [
+        'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80',
+        'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80',
+        'https://images.unsplash.com/photo-1552083375-1447ce886485?w=600&q=80',
+        'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80'
+      ],
+      desc: 'Our consolidation services are ideal for small and medium-sized shipments. By grouping multiple consignments into a single container or aircraft load, we offer cost-effective solutions without compromising delivery timelines for any global destination.',
+      specialties: [
+        'Weekly sailings and flights to all major global trade lanes.',
+        'Cost-effective LCL and groupage options for smaller cargo.',
+        'Consolidated warehousing and distribution services.',
+        'Transparent pricing with no hidden surcharges.'
+      ]
+    },
+    door: {
+      title: 'DOOR TO DOOR LOGISTICS SERVICES',
+      images: [
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+        'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80',
+        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80',
+        'https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=600&q=80'
+      ],
+      desc: 'Our Door to Door services provide a complete end-to-end logistics solution from the point of origin all the way to the final delivery destination. We handle pick-up, packaging, customs, freight, and last-mile delivery seamlessly under one roof.',
+      specialties: [
+        'Single point of contact for the entire shipment journey.',
+        'Real-time cargo visibility from pick-up to delivery.',
+        'Integrated customs clearance for hassle-free delivery.',
+        'Specialized handling for fragile, oversized, and sensitive cargo.'
+      ]
+    },
+    insurance: {
+      title: 'INSURANCE SERVICES FOR CARGO',
+      images: [
+        'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80',
+        'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80',
+        'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80',
+        'https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&q=80'
+      ],
+      desc: 'We offer comprehensive cargo insurance services to protect your valuable shipments against damage, theft, or loss during transit. Our team works with leading marine insurers to provide you the best coverage at competitive premiums for all modes of transport.',
+      specialties: [
+        'All-risk and named-peril marine cargo insurance policies.',
+        'Instant policy issuance with minimal documentation.',
+        'Dedicated claims management support for fast settlements.',
+        'Covers sea, air, and inland transit risks globally.'
+      ]
+    },
+    consultancy: {
+      title: 'CONSULTANCY, CERTIFICATION & COMPLIANCES',
+      images: [
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
+        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80',
+        'https://images.unsplash.com/photo-1542744094-24638eff58bb?w=600&q=80'
+      ],
+      desc: 'JM Shipping and Logistics provides expert trade consultancy to help businesses navigate complex regulatory landscapes. We assist with certifications, trade compliance, licensing, and documentation requirements for all aspects of international trade.',
+      specialties: [
+        'Expert guidance on EXIM policies, IEC, and trade compliance.',
+        'Assistance with DGFT licenses, RCMC, and FTA benefits.',
+        'Pre-shipment inspection coordination and quality certifications.',
+        'Regular trade advisory updates and regulatory change notifications.'
+      ]
+    }
+  };
+
+  function renderDetail(key) {
+    var s = services[key];
+    var el = document.getElementById('detailContent');
+    el.innerHTML =
+      '<div class="service-images">' +
+        s.images.map(function(src) { return '<img src="' + src + '" alt="">'; }).join('') +
+      '</div>' +
+      '<h2>' + s.title + '</h2>' +
+      '<p>' + s.desc + '</p>' +
+      '<p class="specialties-title">Specialties:</p>' +
+      '<ul class="specialties-list">' +
+        s.specialties.map(function(sp) {
+          return '<li><i class="fas fa-thumbs-up"></i><span>' + sp + '</span></li>';
+        }).join('') +
+      '</ul>';
+    setTimeout(function() {
+      el.querySelectorAll('.specialties-list li').forEach(function(li, i) {
+        setTimeout(function() { li.classList.add('vis'); }, i * 110);
+      });
+    }, 60);
+  }
+
+  document.getElementById('serviceMenu').addEventListener('click', function(e) {
+    var link = e.target.closest('a[data-key]');
+    if (!link) return;
+    e.preventDefault();
+    document.querySelectorAll('#serviceMenu a').forEach(function(a) { a.classList.remove('active'); });
+    link.classList.add('active');
+    renderDetail(link.dataset.key);
+    document.querySelector('.services-layout').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  renderDetail('ocean');
+
+  function onVisible(el, cb, threshold) {
+    if (!el) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { cb(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: threshold || 0.15 });
+    obs.observe(el);
+  }
+
+  /* Counters */
+  var counterDone = false;
+  onVisible(document.getElementById('counterStrip'), function() {
+    if (counterDone) return;
+    counterDone = true;
+    document.querySelectorAll('.counter-item').forEach(function(item, i) {
+      setTimeout(function() {
+        item.classList.add('vis');
+        var target = parseInt(item.dataset.target);
+        var numEl = item.querySelector('.num');
+        var dur = 1600, steps = 60, inc = target / steps, cur = 0;
+        var t = setInterval(function() {
+          cur = Math.min(cur + inc, target);
+          numEl.textContent = Math.round(cur) + '+';
+          if (cur >= target) { numEl.textContent = target + '+'; clearInterval(t); }
+        }, dur / steps);
+      }, i * 120);
+    });
+  }, 0.1);
+
+  /* Cards reveal */
+  document.querySelectorAll('.srv-card').forEach(function(card) {
+    onVisible(card, function(t) {
+      setTimeout(function() { t.classList.add('vis'); }, parseInt(t.dataset.delay) || 0);
+    }, 0.1);
+  });
+
+  /* Back to top */
+  var btn = document.getElementById('backTop');
+  window.addEventListener('scroll', function() { btn.classList.toggle('show', window.scrollY > 300); });
+  btn.addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JM Shipping & Logistics – Career</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Poppins',sans-serif; color:#222; overflow-x:hidden; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: #0d1b3e;
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-bar .logo { font-size: 22px; font-weight: 700; color: #fff; }
+    .top-bar .logo span { color: #e91e8c; }
+    .top-bar .contact-info { display: flex; gap: 30px; align-items: center; }
+    .top-bar .contact-info a {
+      color: #ccc; text-decoration: none; font-size: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .top-bar .contact-info a:hover { color: #e91e8c; }
+    .top-bar .socials { display: flex; gap: 10px; align-items: center; }
+    .top-bar .socials a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .top-bar .socials a:hover { background: #e91e8c; border-color: #e91e8c; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #fff;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .nav-links { display: flex; list-style: none; gap: 0; }
+    .nav-links li a {
+      display: block;
+      padding: 22px 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-links li a:hover,
+    .nav-links li a.active { color: #e91e8c; border-bottom-color: #e91e8c; }
+    .btn-brochure {
+      background: linear-gradient(135deg, #e91e8c, #c2185b);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+    .btn-brochure:hover { opacity: 0.9; }
+
+    /* ══════════════════════════
+       HERO BANNER
+    ══════════════════════════ */
+    .page-hero {
+      position:relative;
+      height:220px;
+      overflow:hidden;
+      display:flex; align-items:center; justify-content:center; flex-direction:column;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, #1b2a6b 0%, #7b1fa2 45%, #e91e8c 100%);
+      z-index:0;
+    }
+    #aiCanvas { position:absolute; inset:0; z-index:1; opacity:.35; }
+    .orb { position:absolute; border-radius:50%; filter:blur(55px); z-index:1; animation:orbFloat 7s ease-in-out infinite alternate; pointer-events:none; }
+    .orb1 { width:280px;height:280px;background:rgba(233,30,140,.4);top:-80px;left:-50px; }
+    .orb2 { width:200px;height:200px;background:rgba(27,42,107,.5);bottom:-60px;right:8%;animation-delay:2s; }
+    .orb3 { width:160px;height:160px;background:rgba(156,39,176,.45);top:0;right:3%;animation-delay:4s; }
+    @keyframes orbFloat { from{transform:translate(0,0)} to{transform:translate(16px,22px) scale(1.07)} }
+    .particle { position:absolute; border-radius:50%; background:rgba(255,255,255,.55); animation:pRise linear infinite; z-index:2; pointer-events:none; }
+    @keyframes pRise { 0%{transform:translateY(120%);opacity:0} 10%{opacity:1} 90%{opacity:.7} 100%{transform:translateY(-60px) translateX(12px);opacity:0} }
+    .hero-content { position:relative; z-index:3; text-align:center; }
+    .hero-content h1 { font-size:50px; font-weight:800; color:#fff; letter-spacing:3px; margin-bottom:14px; }
+    .breadcrumb { display:flex; align-items:center; justify-content:center; gap:10px; color:rgba(255,255,255,.85); font-size:15px; }
+    .breadcrumb a { color:rgba(255,255,255,.85); text-decoration:none; }
+    .bc-sep { display:flex; gap:2px; align-items:center; }
+    .bc-chev { display:inline-block; width:8px; height:8px; border-right:2.5px solid #e91e8c; border-top:2.5px solid #e91e8c; transform:rotate(45deg); }
+    .bc-chev2 { margin-left:-4px; }
+
+    /* ══════════════════════════
+       PINK BAND + WORK WITH US
+       The hero ends, then a pink 
+       full-width band sits here.
+       The navy "WORK WITH US" box
+       overlaps from hero bottom 
+       into the pink band.
+    ══════════════════════════ */
+    .hero-bottom-area {
+      position:relative;
+      height:0; /* zero height — the boxes extend from hero */
+    }
+    .work-with-us-box {
+      position:absolute;
+      top:-55px;   /* rides up into the hero */
+      left:200px;
+      z-index:10;
+      display:flex;
+      align-items:stretch;
+    }
+    /* Navy block */
+    .wwu-navy {
+      background:#1b2a6b;
+      padding:20px 36px;
+      border-radius:0 14px 0 0;
+      display:flex; align-items:center;
+      min-width:330px;
+      position:relative;
+      z-index:2;
+    }
+    .wwu-navy h2 { font-size:23px; font-weight:800; color:#fff; letter-spacing:2px; text-transform:uppercase; }
+    Pink tab behind navy box top-right 
+    .wwu-pink-tab {
+      background:#d661a1;
+      width:10px;
+      border-radius:0 14px 0 0;
+      margin-left:-12px;
+      z-index:1;
+    } 
+
+    /* ══════════════════════════
+       PINK FULL-WIDTH BAND
+       (sits below hero)
+    ══════════════════════════ */
+    .pink-fullband {
+      background:#e91e8c;
+      height:60px;
+      width:100%;
+    }
+
+    /* ══════════════════════════
+       MAIN CAREER CONTENT
+    ══════════════════════════ */
+    .career-wrap {
+      display:flex;
+      background:#f0f1f3;
+      min-height:560px;
+    }
+
+    /* ── LEFT PANEL ── */
+    .career-left {
+      width:420px;
+      flex-shrink:0;
+      background:#1b2a6b;
+      padding:44px 36px 50px 36px;
+      border-radius:0 0 14px 0;   /* rounded bottom-right only */
+      position:relative;
+      z-index:2;
+    }
+    .info-point {
+      display:flex; gap:13px; margin-bottom:26px; align-items:flex-start;
+    }
+    .chev-icon {
+      flex-shrink:0; display:flex; align-items:center; gap:0; margin-top:4px;
+    }
+    .chev-icon span {
+      display:inline-block; width:11px; height:11px;
+      border-right:2.5px solid #9c27b0;
+      border-top:2.5px solid #9c27b0;
+      transform:rotate(45deg);
+    }
+    .chev-icon span:nth-child(2) { margin-left:-6px; }
+    .info-point p { font-size:14px; color:rgba(255,255,255,.87); line-height:1.78; }
+
+    /* ── RIGHT PANEL ── */
+    .career-right {
+      flex:1;
+      background:#f0f1f3;
+      padding:46px 70px 60px 70px;
+      position:relative;
+      overflow:hidden;
+    }
+    /* Large globe dot watermark — fills right side */
+    .career-right::after {
+      content:'';
+      position:absolute;
+      right:-110px; top:50%; transform:translateY(-50%);
+      width:580px; height:580px;
+      border-radius:50%;
+      background-image: radial-gradient(circle, #b0b8c8 3.5px, transparent 3.5px);
+      background-size:28px 28px;
+      opacity:0.42;
+      pointer-events:none;
+    }
+
+    .form-title {
+      font-size:28px; font-weight:800; color:#111;
+      margin-bottom:28px;
+      position:relative; z-index:1;
+    }
+
+    /* Blue input fields */
+    .f-input {
+      display:block; width:100%;
+      background:#2563b8;
+      border:none; border-radius:7px;
+      padding:18px 22px;
+      font-family:'Poppins',sans-serif;
+      font-size:14px; color:rgba(255,255,255,.88);
+      margin-bottom:14px; outline:none;
+      transition:background .25s;
+      position:relative; z-index:1;
+    }
+    .f-input::placeholder { color:rgba(255,255,255,.68); }
+    .f-input:focus { background:#1a4fa0; }
+
+    /* Upload Your Resume */
+    .upload-lbl {
+      display:block;
+      font-size:18px; font-weight:800; color:#111;
+      margin-bottom:12px; margin-top:4px;
+      position:relative; z-index:1;
+    }
+    .file-row {
+      display:flex; align-items:center;
+      width:100%; height:56px;
+      border-radius:7px; overflow:hidden;
+      margin-bottom:14px;
+      position:relative; z-index:1;
+      background:#2563b8;
+    }
+    .file-row .choose-btn {
+      background:#e8e8e8; color:#333;
+      border:none; border-right:1px solid #bbb;
+      height:100%; padding:0 18px;
+      font-family:'Poppins',sans-serif;
+      font-size:13px; font-weight:600;
+      cursor:pointer; flex-shrink:0; white-space:nowrap;
+    }
+    .file-row .file-name {
+      flex:1; padding:0 18px;
+      color:rgba(255,255,255,.72); font-size:13px;
+    }
+    #resumeFile { display:none; }
+
+    textarea.f-input {
+      resize:vertical; min-height:120px;
+    }
+
+    .btn-submit {
+      background:linear-gradient(135deg,#9c27b0,#e91e8c);
+      color:#fff; border:none;
+      padding:16px 54px; border-radius:7px;
+      font-family:'Poppins',sans-serif;
+      font-size:16px; font-weight:600;
+      cursor:pointer; margin-top:10px;
+      transition:opacity .3s, transform .2s;
+      position:relative; z-index:1;
+    }
+    .btn-submit:hover { opacity:.9; transform:translateY(-1px); }
+
+    /* Scroll-to-top button */
+    .scroll-top {
+      position:fixed; bottom:24px; right:20px;
+      width:40px; height:40px;
+      background:#fff; border:1px solid #ccc;
+      border-radius:4px; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:16px; color:#333;
+      z-index:999; transition:background .2s;
+      text-decoration:none;
+    }
+    .scroll-top:hover { background:#e91e8c; color:#fff; border-color:#e91e8c; }
+
+    /* ══════════════════════════
+       FOOTER
+    ══════════════════════════ */
+    footer {
+      background:#0d1b3e; padding:60px 50px 0;
+      position:relative; overflow:hidden;
+    }
+    footer::before {
+      content:''; position:absolute; inset:0;
+      background-image:radial-gradient(circle,#e91e8c44 1.5px,transparent 1.5px);
+      background-size:70px 70px; pointer-events:none; opacity:.35;
+    }
+    .footer-grid {
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1.4fr 1.5fr;
+      gap:40px; position:relative; z-index:1; padding-bottom:50px;
+    }
+    .footer-logo-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .f-globe { width:68px; height:68px; }
+    .fb-jm { font-size:25px; font-weight:800; color:#fff; }
+    .fb-jm span { color:#e91e8c; }
+    .fb-sub { font-size:9px; color:rgba(255,255,255,.55); letter-spacing:1.5px; text-transform:uppercase; margin-top:2px; }
+    .footer-tag { color:rgba(255,255,255,.6); font-size:14px; line-height:1.65; }
+    .fc h3 { color:#fff; font-size:17px; font-weight:700; margin-bottom:6px; }
+    .fc-div { width:40px; height:3px; background:#e91e8c; margin-bottom:18px; }
+    .fc ul { list-style:none; }
+    .fc ul li { margin-bottom:10px; }
+    .fc ul li a { color:rgba(255,255,255,.7); text-decoration:none; font-size:14px; transition:color .3s; }
+    .fc ul li a:hover { color:#e91e8c; }
+    .fc .wh-p { color:rgba(255,255,255,.6); font-size:14px; line-height:1.6; margin-bottom:16px; }
+    .hr-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; color:rgba(255,255,255,.7); font-size:14px; }
+    .hr-row i { color:#e91e8c; }
+    .hr-row .t { margin-left:auto; }
+    .cr-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; color:rgba(255,255,255,.7); font-size:14px; }
+    .cr-row i { color:#e91e8c; margin-top:3px; flex-shrink:0; }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.1);
+      padding:18px 0; display:flex; justify-content:space-between; align-items:center;
+      position:relative; z-index:1;
+    }
+    .footer-bottom p { color:rgba(255,255,255,.5); font-size:13px; }
+    .credit { color:rgba(255,255,255,.5); font-size:13px; display:flex; align-items:center; gap:5px; }
+    .heart { color:#e91e8c; }
+
+    @media(max-width:900px) {
+      .career-wrap { flex-direction:column; }
+      .career-left { width:100%; border-radius:0; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .work-with-us-box { left:20px; }
+    }
+    @media(max-width:600px) {
+      .nav-links { display:none; }
+      .footer-grid { grid-template-columns:1fr; }
+      .career-right { padding:36px 20px 50px; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("wqPs5EFZcEzJ5-e8N"); // your public key
+})();
+</script>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="logo"><span>JM</span> Shipping &amp; Logistics</div>
+  <div class="contact-info">
+    <a href="mailto:jmshippinglogistics@gmail.com"><i class="fas fa-envelope"></i> jmshippinglogistics@gmail.com</a>
+    <a href="tel:+917777071674"><i class="fas fa-phone"></i> +91-7777071674</a>
+  </div>
+  <div class="socials">
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#"><i class="fas fa-search"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="download.html">Downloads</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="useful_links.html">Useful Links</a></li>
+    <li><a href="contactUs.html">Contact Us</a></li>
+  </ul>
+  <a href="Brochure\JM_Shipping_Logistics_Updated.pdf" 
+   class="btn-brochure" 
+   target="_blank" 
+   rel="noopener noreferrer">
+  Download Brochure
+</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="page-hero" id="pageHero">
+  <div class="hero-bg"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <canvas id="aiCanvas"></canvas>
+  <div class="hero-content">
+    <h1>CAREER</h1>
+    <div class="breadcrumb">
+      <a href="home.html">Home</a>
+      <div class="bc-sep"><span class="bc-chev"></span><span class="bc-chev bc-chev2"></span></div>
+      <span>Careers</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORK WITH US (overlaps hero bottom + pink band) ══ -->
+<div style="position:relative;">
+  <!-- Pink full-width band -->
+  <div class="pink-fullband"></div>
+  <!-- Navy box + pink tab overlapping -->
+  <div class="work-with-us-box">
+    <div class="wwu-navy">
+      <h2>WORK WITH US</h2>
+    </div>
+    <div class="wwu-pink-tab"></div>
+  </div>
+</div>
+
+<!-- ══ CAREER CONTENT ══ -->
+<div class="career-wrap">
+
+  <!-- LEFT: Navy info panel -->
+  <div class="career-left">
+    <div class="info-point">
+      <div class="chev-icon"><span></span><span></span></div>
+      <p>We are please to introduce ourselves that we are one of the leading Custom House Agent in Mumbai, (Nhava Sheva).</p>
+    </div>
+    <div class="info-point">
+      <div class="chev-icon"><span></span><span></span></div>
+      <p>We provide total logistics solution including customs clearance, International Freight Forwarding, local transportation, arranging ware house for goods, license registration / verification from the customs.</p>
+    </div>
+    <div class="info-point">
+      <div class="chev-icon"><span></span><span></span></div>
+      <p>We are providing superior service to our client in export import work with prompt and timely service.</p>
+    </div>
+    <div class="info-point">
+      <div class="chev-icon"><span></span><span></span></div>
+      <p>We having good knowledge staff in portend office.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: Form with globe watermark -->
+  <div class="career-right">
+    <h2 class="form-title">Fill in the form below</h2>
+
+    <input type="text" id="name" class="f-input" placeholder="Name"/>
+    <input type="email" id="email" class="f-input" placeholder="Email"/>
+    <input type="tel" id="phone" class="f-input" placeholder="Contact NO."/>
+    <input type="text" id="position" class="f-input" placeholder="Applying for"/>
+
+    <label class="upload-lbl">Upload Your Resume</label>
+    <div class="file-row" onclick="document.getElementById('resumeFile').click()" style="cursor:pointer">
+      <button class="choose-btn" type="button" onclick="event.stopPropagation();document.getElementById('resumeFile').click()">Choose File</button>
+      <span class="file-name" id="fileNameDisplay">No file chosen</span>
+      <input type="file" id="resumeFile" accept=".pdf,.doc,.docx"
+        onchange="document.getElementById('fileNameDisplay').textContent = this.files[0]?.name || 'No file chosen'"/>
+    </div>
+
+    <textarea id="message" class="f-input" placeholder="About Yourself" rows="5"></textarea>
+
+    <button class="btn-submit" onclick="handleSubmit(this)">Submit</button>
+  </div>
+
+</div>
+
+<!-- Scroll to top -->
+<a href="#" class="scroll-top"><i class="fas fa-chevron-up"></i></a>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-row">
+        <svg class="f-globe" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="fg" cx="38%" cy="32%"><stop offset="0%" stop-color="#64b5f6"/><stop offset="55%" stop-color="#1b2a6b"/><stop offset="100%" stop-color="#0d1b4b"/></radialGradient></defs>
+          <circle cx="50" cy="50" r="45" fill="url(#fg)" stroke="#e91e8c" stroke-width="2"/>
+          <ellipse cx="50" cy="50" rx="45" ry="18" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+          <ellipse cx="50" cy="50" rx="45" ry="35" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+          <ellipse cx="50" cy="50" rx="20" ry="45" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1"/>
+          <ellipse cx="50" cy="50" rx="35" ry="45" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+          <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/>
+          <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,255,255,.22)" stroke-width="1.2"/>
+        </svg>
+        <div>
+          <div class="fb-jm"><span>JM</span></div>
+          <div class="fb-sub">Shipping &amp; Logistics</div>
+        </div>
+      </div>
+      <p class="footer-tag">Reliable Logistic &amp; Transport<br/>Solutions Saves Your Time!</p>
+    </div>
+    <div class="fc">
+      <h3>Quick Links</h3>
+      <div class="fc-div"></div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h3>Working Hours</h3>
+      <div class="fc-div"></div>
+      <p class="wh-p">We will be able to present for your services at this time.</p>
+      <div class="hr-row"><i class="fas fa-clock"></i><span>Monday-Friday:</span><span class="t">10:00-19:00</span></div>
+      <div class="hr-row"><i class="fas fa-clock"></i><span>Saturday:</span><span class="t">10:00-16:00</span></div>
+    </div>
+    <div class="fc">
+      <h3>Connect with Us</h3>
+      <div class="fc-div"></div>
+      <div class="cr-row"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+      <div class="cr-row"><i class="fas fa-envelope"></i><span>jmshippinglogistics@gmail.com</span></div>
+      <div class="cr-row"><i class="fas fa-phone"></i><span>+91-7777071674</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 JM Shipping &amp; Logistics. All rights reserved.</p>
+    <div class="credit">Designed &amp; Developed with <span class="heart">&#9829;</span></div>
+  </div>
+</footer>
+
+<script>
+/* ── AI NETWORK ANIMATION ── */
+const hero   = document.getElementById('pageHero');
+const canvas = document.getElementById('aiCanvas');
+const ctx    = canvas.getContext('2d');
+let nodes = [];
+
+function resize() { canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight; }
+function buildNodes() {
+  nodes = [];
+  const n = Math.max(36, Math.floor(canvas.width * canvas.height / 11000));
+  for (let i = 0; i < n; i++) {
+    nodes.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-.5)*.65, vy:(Math.random()-.5)*.65, r:Math.random()*2+1.2 });
+  }
+}
+function drawNet() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  nodes.forEach(n => {
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+  });
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i+1; j < nodes.length; j++) {
+      const dx = nodes[i].x-nodes[j].x, dy = nodes[i].y-nodes[j].y;
+      const d = Math.sqrt(dx*dx+dy*dy);
+      if (d < 130) {
+        ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y);
+        ctx.strokeStyle = `rgba(255,255,255,${(1-d/130)*.72})`; ctx.lineWidth = .8; ctx.stroke();
+      }
+    }
+  }
+  nodes.forEach(n => { ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,.85)'; ctx.fill(); });
+  requestAnimationFrame(drawNet);
+}
+resize(); buildNodes(); drawNet();
+window.addEventListener('resize', () => { resize(); buildNodes(); });
+
+/* ── PARTICLES ── */
+for (let i = 0; i < 28; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const sz = Math.random()*4+2;
+  p.style.cssText = `position:absolute;left:${Math.random()*100}%;bottom:0;width:${sz}px;height:${sz}px;animation-duration:${Math.random()*7+5}s;animation-delay:${Math.random()*8}s;`;
+  hero.appendChild(p);
+}
+
+/* ── SUBMIT ── */
+function handleSubmit(btn) {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const position = document.getElementById("position").value;
+  const message = document.getElementById("message").value;
+
+  if (!name || !email || !phone || !position || !message) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  btn.textContent = "Sending...";
+  btn.disabled = true;
+
+  emailjs.send("service_u3kjtnn", "template_ea6yc3r", {
+    name: name,
+    email: email,
+    phone: phone,
+    position: position,
+    message: message,
+    resume: "Resume uploaded (check manually)"
+  })
+  .then(function(response) {
+      console.log("SUCCESS", response);
+      btn.textContent = "✅ Application Submitted!";
+      btn.style.background = "green";
+  })
+  .catch(function(error) {
+      console.log("ERROR", error);
+      alert("❌ Email failed: " + error.text);
+      btn.textContent = "Submit";
+      btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
