@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body { font-family: 'Poppins', sans-serif; color: #222; overflow-x: hidden; }
+    img, video { max-width: 100%; height: auto; }
 
     /* ===== TOP BAR (exact from homepage) ===== */
     .top-bar {
@@ -47,6 +48,7 @@
       justify-content: space-between;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       position: sticky; top: 0; z-index: 1000;
+      flex-wrap: nowrap;
     }
     .nav-links { display: flex; list-style: none; gap: 0; }
     .nav-links li a {
@@ -447,8 +449,16 @@
     .footer-bottom .credit .heart { color: #e91e8c; }
 
     /* =====================================================
-       MOBILE MENU TOGGLE
+       MOBILE MENU (CSS-only checkbox)
     ===================================================== */
+    .nav-toggle-input {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0,0,0,0);
+      border: 0;
+      appearance: none;
+    }
     .mobile-menu-toggle {
       display: none;
       background: none;
@@ -456,21 +466,10 @@
       color: #333;
       font-size: 24px;
       cursor: pointer;
+      line-height: 1;
+      padding: 8px;
     }
-    .nav-links.mobile-active {
-      display: flex !important;
-      flex-direction: column;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .nav-links.mobile-active li a {
-      padding: 16px 20px;
-      border-bottom: 1px solid #eee;
-    }
+    .mobile-menu-toggle i { pointer-events: none; }
 
     /* =====================================================
        RESPONSIVE
@@ -496,13 +495,55 @@
         gap: 8px;
         font-size: 12px;
       }
-      nav { padding: 0 15px; }
-      .mobile-menu-toggle { display: block; }
-      .nav-links { display: none; }
-      .nav-links li a { padding: 14px 15px; font-size: 13px; }
-      .btn-brochure { padding: 12px 20px; font-size: 13px; }
+      .top-bar .contact-info a { word-break: break-word; }
+      nav {
+        padding: 0 15px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        row-gap: 0;
+      }
+      .mobile-menu-toggle { display: block; order: 1; z-index: 1002; }
+      .btn-brochure {
+        order: 2;
+        margin-left: auto;
+        padding: 12px 20px;
+        font-size: 13px;
+        max-width: calc(100% - 52px);
+        text-align: center;
+        white-space: normal;
+      }
+      .nav-links {
+        order: 3;
+        flex-basis: 100%;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .nav-toggle-input:checked ~ .nav-links {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 1001;
+        max-height: min(70vh, 480px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .nav-links li { width: 100%; }
+      .nav-links li a { padding: 14px 15px; font-size: 13px; border-bottom: 1px solid #eee; }
       .footer-grid { grid-template-columns: 1fr; }
       .downloads-grid { grid-template-columns: 1fr; gap: 40px; }
+      .profile-card-inner { flex-direction: column; }
+      .card-chevron { width: 100%; min-height: 120px; }
+      .hero-content h1 { font-size: 32px; letter-spacing: 2px; }
+      .btn-download-profile, .btn-converter { width: 100%; max-width: 100%; text-align: center; }
     }
 
     @media (max-width: 480px) {
@@ -541,7 +582,8 @@
 
 <!-- ===== NAVBAR ===== -->
 <nav>
-  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+  <label for="nav-toggle" class="mobile-menu-toggle" aria-label="Open navigation"><i class="fas fa-bars"></i></label>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About Us</a></li>
